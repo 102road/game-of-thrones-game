@@ -1,7 +1,8 @@
-const url = "https://thronesapi.com/api/v2/Characters";
+const url = "http://api.viewers-guide.hbo.com/service/charactersList";
 const options = {
   method: "GET",
-  headers: { accept: "application/json" },
+  mode: 'cors',
+  headers: { 'Content-type': "application/json" },
 };
 
 // Variables
@@ -23,9 +24,10 @@ const reorderCharacterList = () => {
 
 const createCharacterTile = (character) => {
   let parentEl = document.createElement("article");
+  parentEl.setAttribute("class", "character");
 
   let name = document.createElement("h2");
-  name.innerHTML = character.fullName;
+  name.innerHTML = character.name;
 
   let house = document.createElement("p");
   house.innerHTML = character.familyHouse;
@@ -33,28 +35,64 @@ const createCharacterTile = (character) => {
   let image = document.createElement("img");
   image.setAttribute("src", character.imageUrl);
 
-  parentEl.append(image, name, house);
+  let button = document.createElement("button");
+
+//   button.addEventListener("click", () => {
+
+//   });
+
+  parentEl.append(image, name, house, button);
   return parentEl;
 };
 
+const resetCharacters = () => {
+  let rootEl = document.querySelector(".root");
+  rootEl.innerHTML = "";
+  setCharacterOne();
+  setCharacterTwo();
+};
+
 const setCharacterOne = () => {
-  characterOne = "";
+  characterOne.innerHTML = "";
   characterOne = document.createElement("section");
   characterOne.setAttribute("class", "character-one");
 
   let character = characterList.shift();
   characterOne.append(createCharacterTile(character));
-  let rootEl = document.querySelector("root");
+  let rootEl = document.querySelector(".root");
   rootEl.append(characterOne);
 };
 
 const setCharacterTwo = () => {
-  characterTwo = "";
+  characterTwo.innerHTML = "";
   characterTwo = document.createElement("section");
   characterTwo.setAttribute("class", "character-two");
 
   let character = characterList.shift();
   characterTwo.append(createCharacterTile(character));
-  let rootEl = document.querySelector("root");
+  let rootEl = document.querySelector(".root");
   rootEl.append(characterTwo);
 };
+
+//Start Page
+
+let title = document.createElement("h1");
+title.innerHTML = "Welcome to the game of faces";
+
+let description = document.createElement("p");
+description.innerHTML =
+  "A game where you decide who is the stronger character from the popular HBO series Game of Thrones";
+
+let button = document.createElement("button");
+button.innerHTML = "Get Started";
+
+let rootEl = document.querySelector(".root");
+rootEl.append(title, description, button);
+
+//Event handlers
+
+button.addEventListener("click", () => {
+  fetchCharacters();
+  reorderCharacterList();
+  resetCharacters();
+});
