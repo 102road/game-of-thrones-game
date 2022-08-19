@@ -1,0 +1,39 @@
+.root{
+    box-sizing: border-box;
+    background-color: darkslategrey;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.character{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: darkslategrey;
+}
+
+h1, h2, p {
+    color: antiquewhite;
+}
+
+img{
+    width: 15rem;
+}
+
+button{
+    background-color: darkslategray;
+    width: 4rem;
+    border: solid 2px antiquewhite;
+    border-radius: 1rem;
+    color: antiquewhite;
+}

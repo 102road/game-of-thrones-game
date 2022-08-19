@@ -36,6 +36,16 @@ const createCharacterTile = (character) => {
   image.setAttribute("src", character.imageUrl);
 
   let button = document.createElement("button");
+  button.setAttribute("value", character.id);
+  button.innerHTML = "Choose";
+  button.addEventListener("click", (e) => {
+    fetch(url, {
+      method: "POST",
+      mode: "cors",
+      headers: { "Content-type": "application/json", id: e.target.value },
+    });
+    resetCharacters();
+  });
 
   parentEl.append(image, name, house, button);
   return parentEl;
@@ -73,7 +83,7 @@ const resetCharacters = () => {
 //Start Page
 
 let title = document.createElement("h1");
-title.innerHTML = "Welcome to the game of faces";
+title.innerHTML = "Welcome to the Game of Faces";
 
 let description = document.createElement("p");
 description.innerHTML =
@@ -82,19 +92,19 @@ description.innerHTML =
 let button = document.createElement("button");
 button.innerHTML = "Get Started";
 
+let container = document.createElement("div");
+container.append(title, description, button);
+
 let rootEl = document.querySelector(".root");
-rootEl.append(title, description, button);
+rootEl.append(container);
 
 //Event handlers
 
-button.addEventListener(
-  "click",
-  () => {
-    fetchCharacters();
-    setTimeout(() => {
-      console.log(characterList);
-      reorderCharacterList();
-      resetCharacters();
-    },1000);
-  }
-);
+button.addEventListener("click", () => {
+  fetchCharacters();
+  setTimeout(() => {
+    console.log(characterList);
+    reorderCharacterList();
+    resetCharacters();
+  }, 1000);
+});
