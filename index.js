@@ -1,8 +1,8 @@
-const url = "http://api.viewers-guide.hbo.com/service/charactersList";
+const url = "http://localhost:4000/characters";
 const options = {
   method: "GET",
-  mode: 'cors',
-  headers: { 'Content-type': "application/json" },
+  mode: "cors",
+  headers: { "Content-type": "application/json" },
 };
 
 // Variables
@@ -27,29 +27,18 @@ const createCharacterTile = (character) => {
   parentEl.setAttribute("class", "character");
 
   let name = document.createElement("h2");
-  name.innerHTML = character.name;
+  name.innerHTML = character.fullName;
 
   let house = document.createElement("p");
-  house.innerHTML = character.familyHouse;
+  house.innerHTML = character.family;
 
   let image = document.createElement("img");
   image.setAttribute("src", character.imageUrl);
 
   let button = document.createElement("button");
 
-//   button.addEventListener("click", () => {
-
-//   });
-
   parentEl.append(image, name, house, button);
   return parentEl;
-};
-
-const resetCharacters = () => {
-  let rootEl = document.querySelector(".root");
-  rootEl.innerHTML = "";
-  setCharacterOne();
-  setCharacterTwo();
 };
 
 const setCharacterOne = () => {
@@ -74,6 +63,13 @@ const setCharacterTwo = () => {
   rootEl.append(characterTwo);
 };
 
+const resetCharacters = () => {
+  let rootEl = document.querySelector(".root");
+  rootEl.innerHTML = "";
+  setCharacterOne();
+  setCharacterTwo();
+};
+
 //Start Page
 
 let title = document.createElement("h1");
@@ -91,8 +87,14 @@ rootEl.append(title, description, button);
 
 //Event handlers
 
-button.addEventListener("click", () => {
-  fetchCharacters();
-  reorderCharacterList();
-  resetCharacters();
-});
+button.addEventListener(
+  "click",
+  () => {
+    fetchCharacters();
+    setTimeout(() => {
+      console.log(characterList);
+      reorderCharacterList();
+      resetCharacters();
+    },1000);
+  }
+);
