@@ -1,4 +1,4 @@
-const url = "http://localhost:4000/characters";
+const url = "http://localhost:4000/";
 const options = {
   method: "GET",
   mode: "cors",
@@ -39,7 +39,7 @@ const createCharacterTile = (character) => {
   button.setAttribute("value", character.id);
   button.innerHTML = "Choose";
   button.addEventListener("click", (e) => {
-    fetch(url, {
+    fetch(url + "characters", {
       method: "POST",
       mode: "cors",
       headers: { "Content-type": "application/json", id: e.target.value },
@@ -73,14 +73,58 @@ const setCharacterTwo = () => {
   rootEl.append(characterTwo);
 };
 
+const createTableItem = (record) => {
+  let container = document.createElement("div");
+
+  let name = document.createElement("p");
+  name.innerHTML = record.key;
+
+  let value = document.createElement("p");
+  value.innerHTML = record.value;
+
+  return container.append(name, value);
+};
+
+const displayResults = () => {
+  let table = document.createElement("div");
+
+  let container = document.createElement("div");
+
+  let name = document.createElement("p");
+  name.innerHTML = "Name";
+
+  let value = document.createElement("p");
+  value.innerHTML = "Wins";
+
+  container.append(name, value);
+  table.append(container);
+
+  fetch(url + "results", options)
+    .then((response) => response.json())
+    .then((response) => {
+      let results = Object.entries(response).sort((a, b) => b[1] - a[1]);
+      results.forEach((element) => {
+        table.append(createTableItem(element));
+      });
+      let root = document.querySelector(".root");
+      root.append(table);
+    });
+};
+
 const resetCharacters = () => {
   let rootEl = document.querySelector(".root");
   rootEl.innerHTML = "";
+  if (characterList === []) {
+    displayResults();
+    return;
+  }
   setCharacterOne();
   setCharacterTwo();
 };
 
 //Start Page
+
+fetch(url + "hi", options);
 
 let title = document.createElement("h1");
 title.innerHTML = "Welcome to the Game of Faces";
@@ -103,7 +147,6 @@ rootEl.append(container);
 button.addEventListener("click", () => {
   fetchCharacters();
   setTimeout(() => {
-    console.log(characterList);
     reorderCharacterList();
     resetCharacters();
   }, 1000);
