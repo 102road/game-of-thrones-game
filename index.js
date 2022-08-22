@@ -1,3 +1,5 @@
+// API variables
+
 const url = "http://localhost:4000/";
 const options = {
   method: "GET",
@@ -5,12 +7,14 @@ const options = {
   headers: { "Content-type": "application/json" },
 };
 
-// Variables
+// Character Variables
+
 let characterList = [];
 let characterOne = "";
 let characterTwo = "";
 
-// Fetch data function will on be called once
+//Sets Character list
+
 const fetchCharacters = () => {
   fetch(url, options)
     .then((response) => response.json())
@@ -22,7 +26,12 @@ const reorderCharacterList = () => {
   characterList.sort(() => Math.random() - 0.5);
 };
 
+// Creates Character Functions
+
 const createCharacterTile = (character) => {
+
+  // Creates elements for character tile
+
   let parentEl = document.createElement("article");
   parentEl.setAttribute("class", "character");
 
@@ -38,6 +47,9 @@ const createCharacterTile = (character) => {
   let button = document.createElement("button");
   button.setAttribute("value", character.fullName);
   button.innerHTML = "Choose";
+  
+  // Event Handler that posts results each selection and adds one point to the character results page
+
   button.addEventListener("click", (e) => {
     fetch(url, {
       method: "POST",
@@ -48,6 +60,8 @@ const createCharacterTile = (character) => {
       .catch((err) => console.log(err));
     resetCharacters();
   });
+
+  // Appends elements to parent element
 
   parentEl.append(name, image, house, button);
   return parentEl;
@@ -75,6 +89,22 @@ const setCharacterTwo = () => {
   rootEl.append(characterTwo);
 };
 
+const resetCharacters = () => {
+  let rootEl = document.querySelector(".root");
+  rootEl.innerHTML = "";
+
+  //Checks to see Character list array is empty and displays results if it is empty
+
+  if (characterList.length === 0) {
+    displayResults();
+    return;
+  }
+  setCharacterOne();
+  setCharacterTwo();
+};
+
+//Results table functions
+
 const createTableItem = (record) => {
   let container = document.createElement("div");
   container.setAttribute("class", "container");
@@ -92,6 +122,8 @@ const createTableItem = (record) => {
 };
 
 const displayResults = () => {
+  // Create title and game button for results page
+
   let title = document.createElement("h2");
   title.innerHTML = "Results";
 
@@ -105,6 +137,8 @@ const displayResults = () => {
       resetCharacters();
     }, 1000);
   });
+
+  // Creates header for results table appends them to the top of the page
 
   let table = document.createElement("div");
   table.setAttribute("class", "table");
@@ -123,38 +157,40 @@ const displayResults = () => {
   container.append(name, value);
   table.append(container);
 
+  // Fetches results data from api
+
   fetch(url + "results", options)
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
+      // Puts response into descending order
+
       let results = Object.entries(response).sort((a, b) => b[1] - a[1]);
-      console.log(results);
+
+      // Creates elements for each result in the ordered array and appends them to a table
+
       results.forEach((element) => {
         let document = createTableItem(element);
         console.log(document);
         table.append(document);
       });
-      let box = document.createElement('section');
-      box.setAttribute('class', 'box')
-      box.append(title,table,gameButton);
+
+      // Appends all new elements title, table and game button to section element
+
+      let container = document.createElement("section");
+      container.setAttribute("class", "box");
+      container.append(title, table, gameButton);
+
+      // Appends results to the root element
 
       let root = document.querySelector(".root");
-      root.append(box);
+      root.append(container);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
-const resetCharacters = () => {
-  let rootEl = document.querySelector(".root");
-  rootEl.innerHTML = "";
-  if (characterList.length === 0) {
-    displayResults();
-    return;
-  }
-  setCharacterOne();
-  setCharacterTwo();
-};
-
-//Start Page
+//Initial Page Load Creates title, description and buttons
 
 let title = document.createElement("h1");
 title.innerHTML = "Welcome to the Game of Faces";
