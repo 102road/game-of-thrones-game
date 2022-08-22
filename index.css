@@ -1,29 +1,42 @@
-.root{
+*{
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+}
+
+.root{
     background-color: darkslategrey;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    height: 100vh;
 }
 
-div{
+.front-page{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
+    height: 25%;
 }
-
 
 .character{
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-    background-color: darkslategrey;
+    background-color: slategrey;
+    width: 300px;
+    height: 600px;
+    border-radius: 2rem;
 }
 
 h1, h2, p {
     color: antiquewhite;
+}
+
+p{
+    font-size: 0.7rem;
 }
 
 img{
@@ -31,9 +44,44 @@ img{
 }
 
 button{
-    background-color: darkslategray;
+    background-color: black;
     width: 4rem;
-    border: solid 2px antiquewhite;
     border-radius: 1rem;
-    color: antiquewhite;
+    color: slategray;
+    font-size: 2rem;
+    width: 75%;
+}
+
+.box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+.table{
+    border-bottom: solid 2px black;
+    border-left: solid 2px black;
+    border-right: solid 2px black;
+
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.name{
+    border-top: solid 2px black;
+    border-right: solid 2px black;
+    width: 12rem;
+}
+
+.value{
+    border-top: solid 2px black;
+    width:25% ;
+    display: flex;
+    justify-content: center;
 }

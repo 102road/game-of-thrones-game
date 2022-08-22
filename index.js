@@ -29,25 +29,27 @@ const createCharacterTile = (character) => {
   let name = document.createElement("h2");
   name.innerHTML = character.fullName;
 
-  let house = document.createElement("p");
-  house.innerHTML = character.family;
-
   let image = document.createElement("img");
   image.setAttribute("src", character.imageUrl);
 
+  let house = document.createElement("h2");
+  house.innerHTML = character.family;
+
   let button = document.createElement("button");
-  button.setAttribute("value", character.id);
+  button.setAttribute("value", character.fullName);
   button.innerHTML = "Choose";
   button.addEventListener("click", (e) => {
-    fetch(url + "characters", {
+    fetch(url, {
       method: "POST",
       mode: "cors",
-      headers: { "Content-type": "application/json", id: e.target.value },
-    });
+      headers: { "Content-type": "application/json", fullName: e.target.value },
+    })
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
     resetCharacters();
   });
 
-  parentEl.append(image, name, house, button);
+  parentEl.append(name, image, house, button);
   return parentEl;
 };
 
@@ -75,25 +77,47 @@ const setCharacterTwo = () => {
 
 const createTableItem = (record) => {
   let container = document.createElement("div");
+  container.setAttribute("class", "container");
 
   let name = document.createElement("p");
-  name.innerHTML = record.key;
+  name.setAttribute("class", "name");
+  name.innerHTML = record[0];
 
   let value = document.createElement("p");
-  value.innerHTML = record.value;
+  value.setAttribute("class", "value");
+  value.innerHTML = record[1];
 
-  return container.append(name, value);
+  container.append(name, value);
+  return container;
 };
 
 const displayResults = () => {
+  let title = document.createElement("h2");
+  title.innerHTML = "Results";
+
+  let gameButton = document.createElement("button");
+  gameButton.innerHTML = "Play Game";
+
+  gameButton.addEventListener("click", () => {
+    fetchCharacters();
+    setTimeout(() => {
+      reorderCharacterList();
+      resetCharacters();
+    }, 1000);
+  });
+
   let table = document.createElement("div");
+  table.setAttribute("class", "table");
 
   let container = document.createElement("div");
+  container.setAttribute("class", "container");
 
   let name = document.createElement("p");
+  name.setAttribute("class", "name");
   name.innerHTML = "Name";
 
   let value = document.createElement("p");
+  value.setAttribute("class", "value");
   value.innerHTML = "Wins";
 
   container.append(name, value);
@@ -102,19 +126,27 @@ const displayResults = () => {
   fetch(url + "results", options)
     .then((response) => response.json())
     .then((response) => {
+      console.log(response);
       let results = Object.entries(response).sort((a, b) => b[1] - a[1]);
+      console.log(results);
       results.forEach((element) => {
-        table.append(createTableItem(element));
+        let document = createTableItem(element);
+        console.log(document);
+        table.append(document);
       });
+      let box = document.createElement('section');
+      box.setAttribute('class', 'box')
+      box.append(title,table,gameButton);
+
       let root = document.querySelector(".root");
-      root.append(table);
+      root.append(box);
     });
 };
 
 const resetCharacters = () => {
   let rootEl = document.querySelector(".root");
   rootEl.innerHTML = "";
-  if (characterList === []) {
+  if (characterList.length === 0) {
     displayResults();
     return;
   }
@@ -124,8 +156,6 @@ const resetCharacters = () => {
 
 //Start Page
 
-fetch(url + "hi", options);
-
 let title = document.createElement("h1");
 title.innerHTML = "Welcome to the Game of Faces";
 
@@ -133,21 +163,31 @@ let description = document.createElement("p");
 description.innerHTML =
   "A game where you decide who is the stronger character from the popular HBO series Game of Thrones";
 
-let button = document.createElement("button");
-button.innerHTML = "Get Started";
+let gameButton = document.createElement("button");
+gameButton.innerHTML = "Get Started";
+
+let displayButton = document.createElement("button");
+displayButton.innerHTML = " Display Results";
 
 let container = document.createElement("div");
-container.append(title, description, button);
+container.setAttribute("class", "front-page");
+container.append(title, description, gameButton, displayButton);
 
 let rootEl = document.querySelector(".root");
 rootEl.append(container);
 
 //Event handlers
 
-button.addEventListener("click", () => {
+gameButton.addEventListener("click", () => {
   fetchCharacters();
   setTimeout(() => {
     reorderCharacterList();
     resetCharacters();
   }, 1000);
+});
+
+displayButton.addEventListener("click", () => {
+  let rootEl = document.querySelector(".root");
+  rootEl.innerHTML = "";
+  displayResults();
 });
