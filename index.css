@@ -1,23 +1,58 @@
+@font-face {
+    font-family: 'Game of Thrones';
+    src: url('./assets/Game\ of\ Thrones.ttf') format('truetype');
+}
+
 *{
+    font-family: 'Game of Thrones';
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 .root{
-    background-color: darkslategrey;
+    background-color: black;
     display: flex;
     align-items: center;
     justify-content: space-around;
     height: 100vh;
+    animation: fade-in 2s ease forwards;
+}
+
+@keyframes change-background {
+    0% {
+        opacity: 0;
+    }
+    100%{
+        opacity: 100;
+    }
 }
 
 .front-page{
+    background-image: url('./assets/images/ironthrone.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    width: 100vw;
+    height: 100vh;
+    animation: show-up 1.5s ease forwards;
+}
+@keyframes show-up {
+    0%{
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100%{
+        opacity: 100;
+        transform: translateX(0);
+    }
+}
+
+.menu-page{
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: column;
-    height: 25%;
+    height: 20%;
 }
 
 .character{
@@ -25,14 +60,32 @@
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-    background-color: slategrey;
-    width: 300px;
+    width: 400px;
     height: 600px;
+    border: solid 2px white;
+    backdrop-filter: blur(5px);
     border-radius: 2rem;
+    animation: appear 1s ease-in forwards;
 }
 
-h1, h2, p {
-    color: antiquewhite;
+@keyframes appear {
+    0%{
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 100;
+    }
+}
+
+.choose{
+    width: 80%;
+}
+
+h1, h2, h3, p {
+    color: white;
+    font-family: 'Game of Thrones';
 }
 
 p{
@@ -45,11 +98,12 @@ img{
 
 button{
     background-color: black;
-    width: 4rem;
+    border: solid 2px white;
     border-radius: 1rem;
-    color: slategray;
-    font-size: 2rem;
-    width: 75%;
+    color: white;
+    font-size: 1.5rem;
+    width: 80%;
+    padding: 0.5rem;
 }
 
 .box{
@@ -61,10 +115,14 @@ button{
 }
 
 .table{
-    border-bottom: solid 2px black;
-    border-left: solid 2px black;
-    border-right: solid 2px black;
+    border-bottom: solid 2px white;
+    border-left: solid 2px white;
+    border-right: solid 2px white;
 
+}
+
+.play{
+    width: 100%;
 }
 
 .container{
@@ -74,14 +132,16 @@ button{
 }
 
 .name{
-    border-top: solid 2px black;
-    border-right: solid 2px black;
+    border-top: solid 2px white;
+    border-right: solid 2px white;
     width: 12rem;
 }
 
 .value{
-    border-top: solid 2px black;
+    border-top: solid 2px white;
     width:25% ;
     display: flex;
     justify-content: center;
 }
+
+

@@ -29,7 +29,6 @@ const reorderCharacterList = () => {
 // Creates Character Functions
 
 const createCharacterTile = (character) => {
-
   // Creates elements for character tile
 
   let parentEl = document.createElement("article");
@@ -46,8 +45,9 @@ const createCharacterTile = (character) => {
 
   let button = document.createElement("button");
   button.setAttribute("value", character.fullName);
+  button.setAttribute("class", "choose");
   button.innerHTML = "Choose";
-  
+
   // Event Handler that posts results each selection and adds one point to the character results page
 
   button.addEventListener("click", (e) => {
@@ -69,24 +69,24 @@ const createCharacterTile = (character) => {
 
 const setCharacterOne = () => {
   characterOne.innerHTML = "";
-  characterOne = document.createElement("section");
+  characterOne = document.createElement("article");
   characterOne.setAttribute("class", "character-one");
 
   let character = characterList.shift();
   characterOne.append(createCharacterTile(character));
-  let rootEl = document.querySelector(".root");
-  rootEl.append(characterOne);
+  
+  return characterOne;
 };
 
 const setCharacterTwo = () => {
   characterTwo.innerHTML = "";
-  characterTwo = document.createElement("section");
+  characterTwo = document.createElement("article");
   characterTwo.setAttribute("class", "character-two");
 
   let character = characterList.shift();
   characterTwo.append(createCharacterTile(character));
-  let rootEl = document.querySelector(".root");
-  rootEl.append(characterTwo);
+
+  return characterTwo;
 };
 
 const resetCharacters = () => {
@@ -99,8 +99,8 @@ const resetCharacters = () => {
     displayResults();
     return;
   }
-  setCharacterOne();
-  setCharacterTwo();
+  let characterPage = document.createElement('section');
+  characterPage.append(setCharacterOne(),setCharacterTwo())
 };
 
 //Results table functions
@@ -128,6 +128,7 @@ const displayResults = () => {
   title.innerHTML = "Results";
 
   let gameButton = document.createElement("button");
+  gameButton.setAttribute("class", "play");
   gameButton.innerHTML = "Play Game";
 
   gameButton.addEventListener("click", () => {
@@ -192,38 +193,45 @@ const displayResults = () => {
 
 //Initial Page Load Creates title, description and buttons
 
-let title = document.createElement("h1");
-title.innerHTML = "Welcome to the Game of Faces";
-
-let description = document.createElement("p");
-description.innerHTML =
-  "A game where you decide who is the stronger character from the popular HBO series Game of Thrones";
-
-let gameButton = document.createElement("button");
-gameButton.innerHTML = "Get Started";
-
-let displayButton = document.createElement("button");
-displayButton.innerHTML = " Display Results";
-
-let container = document.createElement("div");
-container.setAttribute("class", "front-page");
-container.append(title, description, gameButton, displayButton);
-
 let rootEl = document.querySelector(".root");
-rootEl.append(container);
+
+let menuPage = document.createElement("section");
+menuPage.setAttribute('class', 'front-page');
+
+rootEl.append(menuPage);
+
+const showMenu = () => {
+  
+  let gameButton = document.createElement("button");
+  gameButton.innerHTML = "Get Started";
+
+  let displayButton = document.createElement("button");
+  displayButton.innerHTML = " Display Results";
+
+  let container = document.createElement("div");
+  container.setAttribute("class", "menu-page");
+  container.append(gameButton, displayButton);
+
+  gameButton.addEventListener("click", () => {
+    fetchCharacters();
+    setTimeout(() => {
+      reorderCharacterList();
+      resetCharacters();
+    }, 1000);
+  });
+
+  displayButton.addEventListener("click", () => {
+    let rootEl = document.querySelector(".root");
+    rootEl.innerHTML = "";
+    displayResults();
+  });
+
+  rootEl.innerHTML = '';
+  rootEl.append(container);
+};
 
 //Event handlers
 
-gameButton.addEventListener("click", () => {
-  fetchCharacters();
-  setTimeout(() => {
-    reorderCharacterList();
-    resetCharacters();
-  }, 1000);
-});
-
-displayButton.addEventListener("click", () => {
-  let rootEl = document.querySelector(".root");
-  rootEl.innerHTML = "";
-  displayResults();
+rootEl.addEventListener("click", () => {
+  showMenu();
 });
