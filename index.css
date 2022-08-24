@@ -10,49 +10,76 @@
     box-sizing: border-box;
 }
 
-.root{
-    background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    height: 100vh;
-    animation: fade-in 2s ease forwards;
-}
-
-@keyframes change-background {
-    0% {
-        opacity: 0;
-    }
-    100%{
-        opacity: 100;
-    }
-}
-
 .front-page{
     background-image: url('./assets/images/ironthrone.png');
     background-repeat: no-repeat;
     background-position: 50% 50%;
+    background-size: 100vw 100vh;
     width: 100vw;
     height: 100vh;
-    animation: show-up 1.5s ease forwards;
+    animation: opening-sequence 7.5s ease forwards;
 }
-@keyframes show-up {
+@keyframes opening-sequence {
     0%{
         opacity: 0;
-        transform: translateY(100%);
+        background-image:  url('./assets/images/title.png');
     }
     100%{
         opacity: 100;
-        transform: translateX(0);
     }
 }
 
 .menu-page{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 20%;
+    height: 100vh;
+    background-image: url('./assets/images/facess.png');
+    background-size: cover;
+    animation: appear-in 1s ease-in forwards;
+}
+
+@keyframes appear-in {
+    0%{
+        background-color: black;
+        opacity: 0;
+    }
+    100%{
+        opacity: 100;
+    }
+}
+
+.title-image{
+    width: 25rem;
+    margin: 5rem;
+    border-radius: 4rem;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    margin: 8rem;
+}
+
+button{
+    background-color: black;
+    border: solid 2px white;
+    border-radius: 1rem;
+    color: white;
+    font-size: 1.5rem;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 1rem;
+}
+
+.character-page{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+    background-image: url('./assets/images/bannerss.png');
+    background-size: cover;
 }
 
 .character{
@@ -74,7 +101,7 @@
         opacity: 0;
     }
     100%{
-        transform: translateX(0);
+        transform: translateY(0);
         opacity: 100;
     }
 }
@@ -96,22 +123,15 @@ img{
     width: 15rem;
 }
 
-button{
-    background-color: black;
-    border: solid 2px white;
-    border-radius: 1rem;
-    color: white;
-    font-size: 1.5rem;
-    width: 80%;
-    padding: 0.5rem;
-}
-
-.box{
+.results-page{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     height: 100%;
+    background-image: url('./assets/images/ironthrone.png');
+    background-position: 50%;
+    background-size: 100vw 100vh;
 }
 
 .table{
@@ -122,7 +142,7 @@ button{
 }
 
 .play{
-    width: 100%;
+    width: 50%;
 }
 
 .container{

@@ -74,7 +74,7 @@ const setCharacterOne = () => {
 
   let character = characterList.shift();
   characterOne.append(createCharacterTile(character));
-  
+
   return characterOne;
 };
 
@@ -99,8 +99,11 @@ const resetCharacters = () => {
     displayResults();
     return;
   }
-  let characterPage = document.createElement('section');
-  characterPage.append(setCharacterOne(),setCharacterTwo())
+  let characterPage = document.createElement("section");
+  characterPage.setAttribute("class", "character-page");
+  characterPage.append(setCharacterOne(), setCharacterTwo());
+
+  rootEl.append(characterPage);
 };
 
 //Results table functions
@@ -178,7 +181,7 @@ const displayResults = () => {
       // Appends all new elements title, table and game button to section element
 
       let container = document.createElement("section");
-      container.setAttribute("class", "box");
+      container.setAttribute("class", "results-page");
       container.append(title, table, gameButton);
 
       // Appends results to the root element
@@ -195,22 +198,32 @@ const displayResults = () => {
 
 let rootEl = document.querySelector(".root");
 
-let menuPage = document.createElement("section");
-menuPage.setAttribute('class', 'front-page');
+let frontPage = document.createElement("section");
+frontPage.setAttribute("class", "front-page");
 
-rootEl.append(menuPage);
+rootEl.append(frontPage);
 
 const showMenu = () => {
-  
+  let titleImage = document.createElement('img');
+  titleImage.setAttribute('src', './assets/images/1-2-game-of-thrones-logo-picture.png')
+  titleImage.setAttribute('class', 'title-image');
+
   let gameButton = document.createElement("button");
   gameButton.innerHTML = "Get Started";
 
   let displayButton = document.createElement("button");
   displayButton.innerHTML = " Display Results";
 
-  let container = document.createElement("div");
-  container.setAttribute("class", "menu-page");
-  container.append(gameButton, displayButton);
+  let buttonContainer = document.createElement('div');
+  buttonContainer.setAttribute('class', 'button-container')
+  buttonContainer.append(gameButton, displayButton)
+
+  let menuPage = document.createElement("section");
+  menuPage.setAttribute("class", "menu-page");
+  menuPage.append(titleImage, buttonContainer);
+
+  rootEl.innerHTML = "";
+  rootEl.append(menuPage);
 
   gameButton.addEventListener("click", () => {
     fetchCharacters();
@@ -225,13 +238,10 @@ const showMenu = () => {
     rootEl.innerHTML = "";
     displayResults();
   });
-
-  rootEl.innerHTML = '';
-  rootEl.append(container);
 };
 
 //Event handlers
 
-rootEl.addEventListener("click", () => {
+frontPage.addEventListener("click", () => {
   showMenu();
 });
