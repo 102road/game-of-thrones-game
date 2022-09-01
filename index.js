@@ -1,6 +1,6 @@
 // API variables
 
-const url = "http://localhost:4000/";
+const url = "https://obscure-caverns-34829.herokuapp.com/";
 const options = {
   method: "GET",
   mode: "cors",
