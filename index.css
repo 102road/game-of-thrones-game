@@ -31,10 +31,10 @@
 
 .menu-page{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
     height: 100vh;
+    padding: 3rem;
     background-image: url('./assets/images/facess.png');
     background-size: cover;
     animation: appear-in 1s ease-in forwards;
@@ -52,14 +52,8 @@
 
 .title-image{
     width: 25rem;
-    margin: 5rem;
-    border-radius: 4rem;
-}
-
-.button-container{
-    display: flex;
-    flex-direction: column;
-    margin: 8rem;
+    border: solid 2px white;
+    border-radius: 1rem;
 }
 
 button{
@@ -68,7 +62,7 @@ button{
     border-radius: 1rem;
     color: white;
     font-size: 1.5rem;
-    width: 100%;
+    width: 25rem;
     padding: 0.5rem;
     margin: 1rem;
 }

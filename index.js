@@ -1,6 +1,6 @@
 // API variables
 
-const url = "https://obscure-caverns-34829.herokuapp.com/";
+const url = "http://localhost:3000/";
 const options = {
   method: "GET",
   mode: "cors",
@@ -16,9 +16,12 @@ let characterTwo = "";
 // Function to create menu page
 
 const showMenu = () => {
-  let titleImage = document.createElement('img');
-  titleImage.setAttribute('src', './assets/images/1-2-game-of-thrones-logo-picture.png')
-  titleImage.setAttribute('class', 'title-image');
+  let titleImage = document.createElement("img");
+  titleImage.setAttribute(
+    "src",
+    "./assets/images/1-2-game-of-thrones-logo-picture.png"
+  );
+  titleImage.setAttribute("class", "title-image");
 
   let gameButton = document.createElement("button");
   gameButton.innerHTML = "Get Started";
@@ -26,13 +29,9 @@ const showMenu = () => {
   let displayButton = document.createElement("button");
   displayButton.innerHTML = " Display Results";
 
-  let buttonContainer = document.createElement('div');
-  buttonContainer.setAttribute('class', 'button-container')
-  buttonContainer.append(gameButton, displayButton)
-
   let menuPage = document.createElement("section");
   menuPage.setAttribute("class", "menu-page");
-  menuPage.append(titleImage, buttonContainer);
+  menuPage.append(gameButton, titleImage, displayButton);
 
   rootEl.innerHTML = "";
   rootEl.append(menuPage);
@@ -62,6 +61,7 @@ const fetchCharacters = () => {
 };
 
 const reorderCharacterList = () => {
+  console.log(characterList)
   characterList.sort(() => Math.random() - 0.5);
 };
 
@@ -87,7 +87,7 @@ const createCharacterTile = (character) => {
   button.setAttribute("class", "choose");
   button.innerHTML = "Choose";
 
-  // Event Handler that posts results each selection and adds one point to the character results page
+  // Event Handler that posts results of each selection and adds one point to the character results page
 
   button.addEventListener("click", (e) => {
     fetch(url, {
