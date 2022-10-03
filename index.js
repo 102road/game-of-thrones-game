@@ -1,6 +1,6 @@
 // API variables
 
-const url = "https://obscure-caverns-34829.herokuapp.com/";
+const url = "https://game-of-faces-database.herokuapp.com/";
 const options = {
   method: "GET",
   mode: "cors",
