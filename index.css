@@ -89,6 +89,12 @@ button{
     animation: appear 1s ease-in forwards;
 }
 
+.character-image{
+    width: 15rem;
+    border: 2px solid black;
+    border-radius: 1rem;
+}
+
 @keyframes appear {
     0%{
         transform: translateY(100%);
@@ -111,10 +117,6 @@ h1, h2, h3, p {
 
 p{
     font-size: 0.7rem;
-}
-
-img{
-    width: 15rem;
 }
 
 .results-page{

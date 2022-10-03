@@ -78,6 +78,7 @@ const createCharacterTile = (character) => {
 
   let image = document.createElement("img");
   image.setAttribute("src", character.imageUrl);
+  image.setAttribute('class', 'character-image');
 
   let house = document.createElement("h2");
   house.innerHTML = character.family;
