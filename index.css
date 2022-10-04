@@ -91,8 +91,11 @@ button{
 
 .character-image{
     width: 15rem;
+    height: 15rem;
     border: 2px solid black;
     border-radius: 1rem;
+    background-repeat: no-repeat;
+    background-size:cover;
 }
 
 @keyframes appear {

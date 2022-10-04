@@ -61,7 +61,6 @@ const fetchCharacters = () => {
 };
 
 const reorderCharacterList = () => {
-  console.log(characterList)
   characterList.sort(() => Math.random() - 0.5);
 };
 
@@ -76,8 +75,8 @@ const createCharacterTile = (character) => {
   let name = document.createElement("h2");
   name.innerHTML = character.fullName;
 
-  let image = document.createElement("img");
-  image.setAttribute("src", character.imageUrl);
+  let image = document.createElement("div");
+  image.style.backgroundImage = `url(${character.imageUrl})`;
   image.setAttribute('class', 'character-image');
 
   let house = document.createElement("h2");
