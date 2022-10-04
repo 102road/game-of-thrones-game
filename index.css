@@ -118,30 +118,26 @@ h1, h2, h3, p {
     font-family: 'Game of Thrones';
 }
 
-p{
-    font-size: 0.7rem;
-}
-
 .results-page{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    height: 100%;
+    height: 100vh;
     background-image: url('./assets/images/ironthrone.png');
     background-position: 50%;
     background-size: 100vw 100vh;
 }
 
 .table{
+    display: flex;
+}
+
+.column{
+    margin: 2rem;
     border-bottom: solid 2px white;
     border-left: solid 2px white;
     border-right: solid 2px white;
-
-}
-
-.play{
-    width: 50%;
 }
 
 .container{
@@ -153,7 +149,7 @@ p{
 .name{
     border-top: solid 2px white;
     border-right: solid 2px white;
-    width: 12rem;
+    width: 15rem;
 }
 
 .value{
@@ -163,4 +159,6 @@ p{
     justify-content: center;
 }
 
-
+.play{
+    width: 50%;
+}

@@ -77,7 +77,7 @@ const createCharacterTile = (character) => {
 
   let image = document.createElement("div");
   image.style.backgroundImage = `url(${character.imageUrl})`;
-  image.setAttribute('class', 'character-image');
+  image.setAttribute("class", "character-image");
 
   let house = document.createElement("h2");
   house.innerHTML = character.family;
@@ -147,6 +147,23 @@ const resetCharacters = () => {
 
 //Results table functions
 
+let createTableHeader = () => {
+  let container = document.createElement("div");
+  container.setAttribute("class", "container");
+
+  let name = document.createElement("p");
+  name.setAttribute("class", "name");
+  name.innerHTML = "Name";
+
+  let value = document.createElement("p");
+  value.setAttribute("class", "value");
+  value.innerHTML = "Wins";
+
+  container.append(name, value);
+
+  return container
+}
+
 const createTableItem = (record) => {
   let container = document.createElement("div");
   container.setAttribute("class", "container");
@@ -183,22 +200,18 @@ const displayResults = () => {
 
   // Creates header for results table appends them to the top of the page
 
-  let table = document.createElement("div");
-  table.setAttribute("class", "table");
+  let table = document.createElement('article');
+  table.setAttribute('class', 'table')
 
-  let container = document.createElement("div");
-  container.setAttribute("class", "container");
+  let firstColumn = document.createElement("div");
+  firstColumn.setAttribute("class", "column");
 
-  let name = document.createElement("p");
-  name.setAttribute("class", "name");
-  name.innerHTML = "Name";
+  let secondColumn = document.createElement("div");
+  secondColumn.setAttribute("class", "column");
 
-  let value = document.createElement("p");
-  value.setAttribute("class", "value");
-  value.innerHTML = "Wins";
-
-  container.append(name, value);
-  table.append(container);
+  firstColumn.append(createTableHeader());
+  secondColumn.append(createTableHeader());
+  table.append(firstColumn, secondColumn);
 
   // Fetches results data from api
 
@@ -209,19 +222,27 @@ const displayResults = () => {
 
       let results = Object.entries(response).sort((a, b) => b[1] - a[1]);
 
+      let firstResults = results.slice(0, results.length/2 );
+
+      let secondResults = results.slice(results.length/2, results.length);
+
       // Creates elements for each result in the ordered array and appends them to a table
 
-      results.forEach((element) => {
+      firstResults.forEach((element) => {
         let document = createTableItem(element);
-        console.log(document);
-        table.append(document);
+        firstColumn.append(document);
+      });
+
+      secondResults.forEach((element) => {
+        let document = createTableItem(element);
+        secondColumn.append(document);
       });
 
       // Appends all new elements title, table and game button to section element
 
       let container = document.createElement("section");
       container.setAttribute("class", "results-page");
-      container.append(title, table, gameButton);
+      container.append(title, gameButton, table);
 
       // Appends results to the root element
 
