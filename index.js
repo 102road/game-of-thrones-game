@@ -181,7 +181,10 @@ const createTableItem = (record) => {
 };
 
 const displayResults = () => {
-  // Create title and game button for results page
+  // Create title and game button for results page and append to the header
+
+  let header = document.createElement('nav');
+  header.setAttribute('class', 'header');
 
   let title = document.createElement("h2");
   title.innerHTML = "Results";
@@ -197,6 +200,8 @@ const displayResults = () => {
       resetCharacters();
     }, 1000);
   });
+
+  header.append(title,gameButton);
 
   // Creates header for results table appends them to the top of the page
 
@@ -242,7 +247,7 @@ const displayResults = () => {
 
       let container = document.createElement("section");
       container.setAttribute("class", "results-page");
-      container.append(title, gameButton, table);
+      container.append(header, table);
 
       // Appends results to the root element
 
